@@ -6,6 +6,12 @@ http.createServer((requisicao,resposta) => {
 
     const file = requisicao.url === '/' ? 'index.html' : requisicao.url
     const filePath = path.join(__dirname,'Public',file)
+    const extname = path.extname(filePath)
+    
+    const allowedFileTypes = ['.html','.css','.js']
+    const allowed = allowedFileTypes.find(item => item == extname)
+
+    if(!allowed) return
 
     fs.readFile(
         filePath,
